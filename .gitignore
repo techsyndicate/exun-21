@@ -1,0 +1,4 @@
+/admin/.env
+/employee/.env
+/admin/node_modules
+/employee/node_modules
