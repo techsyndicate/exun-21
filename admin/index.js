@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const indexRoute = require('./routes/indexRoute');
+const expressLayouts = require('express-ejs-layouts')
 const mongoose = require('mongoose')
 var db = process.env.db 
 
@@ -13,7 +14,8 @@ mongoose.connect(db,{
 
 const app = express();
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname+'public'));
+app.use(expressLayouts);
+app.use(express.static(__dirname+'/public'));
 app.use(express.urlencoded({extended: true}));
 
 app.use('/',indexRoute)

@@ -14,6 +14,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: new Date,
     },
+    catepillars :{
+        type: Number,
+        default: 0,
+    }
 })
 
 const Users = mongoose.model('Users', userSchema);

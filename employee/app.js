@@ -2,8 +2,11 @@ require('dotenv').config();
 const express = require('express');
 const indexRoute = require('./routes/index');
 const authRoute = require('./routes/auth');
+const dashboardRoute = require('./routes/dashboard');
+const expressLayouts = require('express-ejs-layouts')
 const mongoose = require('mongoose')
 const session = require('express-session');
+const router = require('./routes/index');
 var db = process.env.db 
 
 mongoose.connect(db,{
@@ -15,7 +18,8 @@ mongoose.connect(db,{
 
 const app = express();
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname+'public'));
+app.use(expressLayouts)
+app.use(express.static(__dirname+'/public'));
 app.use(express.urlencoded({extended: true}));
 app.use(
     session({
@@ -30,7 +34,7 @@ app.use(
 
 app.use('/', indexRoute)
 app.use('/auth', authRoute)
-
+app.use('/dashboard', dashboardRoute)
 app.listen(process.env.PORT || 3000, () => {
     console.log('Server started on port 3000');
 })
