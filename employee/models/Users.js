@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: new Date,
     },
-    catepillars :{
+    caterpillars :{
         type: Number,
         default: 0,
     }

@@ -1,0 +1,53 @@
+<div class="leaderboard">
+    <div class="title">
+        <h1>Leaderboard</h1>
+    </div>
+    <div class="leaderboard-search">
+        <input type="text" placeholder="Search User" id="search" onkeyup="search_rows()">
+    </div>
+    <div class="leaderboard-content">
+        <table class="leaderboard-table">
+            <tr class="header">
+                <th>Rank</th>
+                <th>Name</th>
+                <th>Caterpillars</th>
+            </tr>
+            <tbody >
+                <% for( let index = 0; index < users.length; index++ ) { %>
+                    <tr class="row">
+                        <td>
+                            <%= index + 1 %>
+                        </td>
+                        <td>
+                            <%= users[index].name %>
+                        </td>
+                        <td>
+                            <%= users[index].caterpillars %>
+                        </td>
+                    </tr>
+                <% } %>
+            </tbody>
+        </table>
+</div>
+<script>
+function search_rows() {
+    let input = document.getElementById("search").value;
+    input = input.toLowerCase();
+    const rows = document.getElementsByClassName("row");
+    console.log(rows)
+    if (input.length != 0) {
+      for (row of rows) {
+        if (row.children[1].innerText.toLowerCase().includes(input)) {
+          row.style.display = "table-row";
+        } else {
+          row.style.display = "none";
+        }
+      }
+    } else {
+      for (row of rows) {
+        row.style.display = "table-row";
+        console.log(row)
+      }
+    }
+  }
+</script>

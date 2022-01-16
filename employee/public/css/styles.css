@@ -44,3 +44,149 @@ body{
     background-color: #6B4B3E;
     transform: translateY(-5px);
 }
+@media screen and (max-width: 600px){
+    .login-div{
+        width: 90vw;
+        height: 50vw;
+    }
+    .login-div h1{
+        font-size: 3.5vw;
+    }
+    .login-div p{
+        margin-top: -1.5vw;
+        font-size: 1vw;
+    }
+    .login-div button{
+        font-size: 1.25vw;
+        padding: 1vw;
+        margin-top: 1vw;
+        width: 17.5vw;
+    }
+    .leaderboard .title{
+        text-align: center;
+        padding-top: 3.5vw;
+        color: #fff;
+        letter-spacing: 1px;
+    }
+    .leaderboard .leaderboard-content {
+        padding-top: 3.5vw;
+    }
+    .leaderboard-content .leaderboard-table{
+        width: 95vw;
+        border-collapse: collapse;
+        padding: 10px;
+        color: #fff;
+    }
+    .leaderboard-table .header{
+        font-size: 3.5vw;
+        letter-spacing: 1px;
+        font-weight:bold;
+        background-color: #01161E;
+    }
+    .leaderboard-table .header th{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .leaderboard-table tr {
+        text-align: center;
+    }
+    .leaderboard-table td{
+        padding-top: 10px;
+        padding-bottom: 10px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .leaderboard-table tbody{
+        font-weight: bolder;
+        letter-spacing: 1px;
+    }
+    .leaderboard-table tbody tr:nth-child(even){
+        background-color: #c2a67f;
+        color: #000;
+    }
+    #search{
+        border:none;
+        background: transparent;
+        color: #eee;
+        font-size: 3vw;
+        font-family: 'Poppins', sans-serif;
+        letter-spacing: 1px;
+        padding-left:10px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        width: 50vw;
+        margin-left: 2.5vw;
+        border-bottom: 1px solid #eee;
+    }
+    #search::placeholder{
+        color: #eee;
+    }
+    #search:focus{
+        outline: none;
+        background: #c2a67f;
+        border-radius:5px;
+        border: none;
+    }
+    .back{
+        background: #c2a67f;
+        text-decoration: none;
+        color: #eee;
+        font-size: 4vw;
+        padding:2vw;
+        padding-left: 5vw;
+        padding-right: 5vw;
+        margin-top: 1.5vw;
+        border-radius: 7.5px;
+        transition: all 0.4s ease;
+        cursor: pointer;
+        display: block;
+        width: 10vw;
+    }
+    .back:hover{
+        transform: translateY(-5px);
+        box-shadow: rgba(0,0,0,0.2) 0px 0px 10px;
+    }
+    .profile-div{
+        margin-top: 30vw;
+    }
+    .profile-div img{
+        border-radius: 100%;
+        display: block;
+        margin: auto;
+        width: 35vw;
+        height: 35vw;
+    }
+    .profile-div .details{
+        display: block;
+        margin-left: 10vw;
+        margin-top: 5vw;
+        color: #eee;
+        letter-spacing: 1px;
+    }
+    .profile-div .details span{
+        font-weight: bold;
+    }
+    .profile-div a{
+        text-decoration: none;
+        color: #eee;
+        font-size: 4vw;
+        letter-spacing: 1px;
+        background: #01161E;
+        padding:2vw;
+        padding-left: 5vw;
+        padding-right: 5vw;
+        display: block;
+        width: 15vw;
+        margin: auto;
+        border-radius: 7.5px;
+        transition: all 0.4s ease;
+        cursor: pointer;
+    }
+    .profile-div a:hover{
+        transform: translateY(-5px);
+        box-shadow: rgba(0,0,0,0.2) 0px 0px 10px;
+    }
+}
+    
