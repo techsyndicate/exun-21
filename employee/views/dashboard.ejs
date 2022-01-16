@@ -1,2 +1,24 @@
-Hello,<%= user.name %> <br>
-<a href="/dashboard/profile">Profile</a>    
+
+<a href="/profile">Profile</a>
+
+<p>Chosen</p>
+<% for (var i = 0; i < task.length; i++){ %>
+    <% if (task[i].acceptedBy == user._id && task[i].isCompleted == false){ %>
+        <div id="task" onclick='window.location.href = "/taskinfo?taskid=<%= task[i]._id%>"'>
+            <p><%= task[i].title %></p>
+            <p><%= task[i].typeOfTask %></p>
+            <br />
+        </div>
+    <% } %>
+<% } %>
+
+<p>Not chosen</p>
+<% for (var i = 0; i < task.length; i++){ %>
+    <% if (task[i].acceptedBy != user._id){ %>
+        <div id="task" onclick='window.location.href = "/taskinfo?taskid=<%= task[i]._id%>"'>
+            <p><%= task[i].title %></p>
+            <p><%= task[i].typeOfTask %></p>
+            <br />
+        </div>
+    <% } %>
+<% } %>

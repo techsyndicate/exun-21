@@ -3,6 +3,7 @@ const express = require('express');
 const indexRoute = require('./routes/index');
 const authRoute = require('./routes/auth');
 const dashboardRoute = require('./routes/dashboard');
+const taskInfo = require('./routes/taskinfo');
 const expressLayouts = require('express-ejs-layouts')
 const mongoose = require('mongoose')
 const session = require('express-session');
@@ -35,6 +36,7 @@ app.use(
 app.use('/', indexRoute)
 app.use('/auth', authRoute)
 app.use('/dashboard', dashboardRoute)
+app.use('/taskinfo', taskInfo)
 app.listen(process.env.PORT || 3000, () => {
     console.log('Server started on port 3000');
 })
