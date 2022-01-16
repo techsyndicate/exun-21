@@ -190,3 +190,59 @@ body{
     }
 }
     
+/*---------------------------------dashboard---------------------------------*/
+
+#tasks_heading {
+    font-weight: bold;
+    text-align: center;
+    color: #01161e
+}
+
+.dash_flex {
+    display: flex;
+    flex-direction: column;
+}
+
+.dash_flex > div {
+    background-color: #01161e;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 5px;
+}
+
+.dash_flex :hover {
+    transform: scale(1.005);
+    box-shadow: rgba(0,0,0,0.2) 0px 0px 10px;
+}
+
+.dash_flex > div > div {
+    color: #f1e0c5
+}
+
+.task_title {
+    float: left
+}
+
+.task_type {
+    float: right;
+}
+
+.profile_btn {
+    display: block;
+    margin: auto;
+    margin-top: 30px;
+    font-family: "Poppins", sans-serif;
+    background: #01161E;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    color: #f1e0c5;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+a {
+    text-decoration: none;
+}

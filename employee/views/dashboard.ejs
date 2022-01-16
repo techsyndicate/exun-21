@@ -1,24 +1,31 @@
+<h1 id="tasks_heading">Tasks</h1>
 
-<a href="/profile">Profile</a>
-
-<p>Chosen</p>
+<h2 id="tasks_h2">Chosen</h2>
+<div class="dash_flex">
 <% for (var i = 0; i < task.length; i++){ %>
     <% if (task[i].acceptedBy == user._id && task[i].isCompleted == false){ %>
         <div id="task" onclick='window.location.href = "/taskinfo?taskid=<%= task[i]._id%>"'>
-            <p><%= task[i].title %></p>
-            <p><%= task[i].typeOfTask %></p>
-            <br />
+            <div class='task_title'><%= task[i].title %></div>
+            <div class='task_type'><%= task[i].typeOfTask.slice(0, 1).toUpperCase() %></div>
         </div>
     <% } %>
 <% } %>
+</div>
 
-<p>Not chosen</p>
+<h2>Not chosen</h2>
+<div class="dash_flex">
 <% for (var i = 0; i < task.length; i++){ %>
     <% if (task[i].acceptedBy != user._id){ %>
         <div id="task" onclick='window.location.href = "/taskinfo?taskid=<%= task[i]._id%>"'>
-            <p><%= task[i].title %></p>
-            <p><%= task[i].typeOfTask %></p>
-            <br />
+            <div class='task_title'><%= task[i].title %></div>
+            <div class='task_type'><%= task[i].typeOfTask.slice(0, 1).toUpperCase() %></div>
         </div>
     <% } %>
 <% } %>
+</div>
+
+<a href="/profile">
+    <button type="button" class="profile_btn">
+        Profile
+    </button>
+</a>
