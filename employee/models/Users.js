@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema({
     caterpillars :{
         type: Number,
         default: 0,
+    },
+    last_known_location: {
+        type: Array,
+        default: [],
     }
 })
 

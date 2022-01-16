@@ -1,9 +1,11 @@
 const router = require('express').Router()
-require('dotenv').config()
+
 router.get('/', (req, res) => {
-    res.render('index',{
-        api_key : process.env.map
-    })
+    res.render('index')
+})
+
+router.get('/add', (req, res) => {
+    res.render('add-task')
 })
 
 module.exports = router

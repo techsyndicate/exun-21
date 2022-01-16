@@ -1,96 +1,107 @@
-<<<<<<< HEAD
-<script src="/js/app.js"></script>
-
-=======
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        #photo,#chocolates,#address{
-            display: none;
-        }
-    </style>
+    <title>Admin</title>
+    <script src="https://apis.mapmyindia.com/advancedmaps/v1/aa6ca1e6c399bc880ca03d0e1c03b197/map_load?v=2.1"></script>
 </head>
-<body>
-    <form action="/tasks" method="post">
-        <input type="text" name="title" placeholder="title">
-        <textarea type="text" cols="5" rows="4" name="description" placeholder="description"></textarea>
-        <label for="tasks">Type of task:</label>
-        <select id="tasks" name="typeOfTask" oninput="changeForm()">
-            <option value="none">Select type</option>
-            <option value="sourcing">Sourcing</option>
-            <option value="manufacturing">Manufacturing</option>
-            <option value="transporting">Transporting</option>
-        </select>
-        <button id="photo" type="button" onclick="snap()">Take Picture</button>
-        <input type="text" name="photo" id="photoInput" hidden>
-        <input type="number" name="chocolates" id="chocolates" placeholder="No. of chocolates">
-        <input type="text" name="address" id="address" placeholder="address">
-        <input type="submit" value="submit">
-    </form>
-        <video id="video" width="360" height="720" autoplay></video>
-        <button id="snap">Snap Photo</button>
-        <canvas id="canvas" width="360" height="720" hidden></canvas>
-    <script>
-        var input = document.getElementById('tasks');
-        var photo = document.getElementById('photo');
-        var chocolates = document.getElementById('chocolates');
-        var photoInput = document.getElementById('photoInput');
-        var address = document.getElementById('address');
-        var video = document.getElementById('video');
-        var snapBtn = document.getElementById('snap');
-
-        function changeForm(){
-            if(input.value == 'sourcing'){
-                address.style.display = 'none';
-                chocolates.style.display = 'none';
-                photo.style.display = 'block';
-            }else if(input.value == 'manufacturing'){
-                address.style.display = 'none';
-                chocolates.style.display = 'block';
-                photo.style.display = 'none';
-                video.style.display = 'none'
-                snapBtn.style.display = 'none'
-            }else if(input.value == 'transporting'){
-                address.style.display = 'block';
-                chocolates.style.display = 'none';
-                photo.style.display = 'none';
-                video.style.display = 'none'
-                snapBtn.style.display = 'none'
-            }else{
-                address.style.display = 'none';
-                chocolates.style.display = 'none';
-                photo.style.display = 'none';
-                video.style.display = 'none'
-                snapBtn.style.display = 'none'
-            }
+<style>
+    #map {
+        height: 500px;
+        width: 100%;
+    }
+</style>
+<script>
+    var map = null;
+    var marker = [];
+    let users = [
+        {
+            last_known_location: [29.8355, 77.3910],
+            _id: '1231314124124'
+        },
+        {
+            last_known_location: [28.8355, 77.3910],
+            _id:'542344141331'
         }
+    ];
+    let currentPosition = [];
+    let currentMarkerLocation = [];
+    navigator.geolocation.getCurrentPosition(showPosition);
 
-        function snap(){
-            video.style.display = 'block'
-            snapBtn.style.display = 'block'
-            if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-                navigator.mediaDevices.getUserMedia({ video: {facingMode: 'user'}})
-                .then(function(stream) {
-                    video.srcObject = stream;
-                    video.play();
-                })
+    function showPosition(position) {
+        currentPosition = [position.coords.latitude, position.coords.longitude];
+        console.log(currentPosition);
+        map = new MapmyIndia.Map('map', {
+            center: currentPosition,
+            zoomControl: true,
+            hybrid: true
+        });
+    
+        function mapmyindia_fit_markers_into_bound(position) {
+            var maxlat = position.lat;
+            var maxlon = position.lng;
+            var minlat = position.lat;
+            var minlon = position.lng;
+            var southWest = L.latLng(maxlat, maxlon);
+            var northEast = L.latLng(minlat, minlon);
+            var bounds = L.latLngBounds(southWest, northEast);
+            map.fitBounds(bounds);
+        }
+    
+        function addMarker(position, icon, title, draggable) {
+            if (icon == '') {
+                var mk = new L.Marker(position, {
+                    draggable: draggable,
+                    title: title
+                });
+            } else {
+                var mk = new L.Marker(position, {
+                    icon: icon,
+                    draggable: draggable,
+                    title: title
+                });
             }
-
-            var canvas = document.getElementById('canvas');
-            var context = canvas.getContext('2d');
-
-            snapBtn.addEventListener("click", function() {
-                photoInput.value = canvas.toDataURL("image/png")
-                video.style.display = 'none'
-                snapBtn.style.display = 'none'
+            map.addLayer(mk);
+            mk.on("click", async function(e) {
+                mapmyindia_fit_markers_into_bound(position);
+                currentMarkerLocation = [position.lat, position.lng];
+                console.log(title)
             });
+            return mk;
         }
-    </script>
+
+    
+        function markCurrentLocation() {
+            var icon = L.icon({
+                iconUrl: 'https://media.discordapp.net/attachments/872743735388172318/929084635126857768/unknown.png',
+                iconRetinaUrl: 'https://media.discordapp.net/attachments/872743735388172318/929084635126857768/unknown.png',
+                iconSize: [30, 30],
+                popupAnchor: [-3, -15]
+            });
+            var position = new L.LatLng(currentPosition[0], currentPosition[1]);
+            var mk = addMarker(currentPosition, icon, 'Current Location', false);
+        }
+    
+        function loadAllUsers() {
+            var icon = L.icon({
+                iconUrl: 'https://cdn.discordapp.com/attachments/931395342304424017/932398563315560500/marker.png',
+                iconRetinaUrl: 'https://cdn.discordapp.com/attachments/931395342304424017/932398563315560500/marker.png',
+                iconSize: [50, 50],
+                popupAnchor: [-3, -15]
+            });
+            for (let i = 0; i < users.length; i++) {
+                var position = new L.LatLng(users[i].last_known_location[0], users[i].last_known_location[1]);
+                console.log(position)
+                marker.push(addMarker(position, icon, users[i]._id, false));
+            }
+        }
+        markCurrentLocation();
+        loadAllUsers();
+    }
+</script>
+<body>
+    <div id="map"></div>
 </body>
 </html>
->>>>>>> 0abca14fa42517f6a5b1c90876aeafe436ca774b

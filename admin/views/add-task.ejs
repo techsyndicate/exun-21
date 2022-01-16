@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #photo,#chocolates,#address{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <form action="/tasks" method="post">
+        <input type="text" name="title" placeholder="title">
+        <textarea type="text" cols="5" rows="4" name="description" placeholder="description"></textarea>
+        <label for="tasks">Type of task:</label>
+        <select id="tasks" name="typeOfTask" oninput="changeForm()">
+            <option value="none">Select type</option>
+            <option value="sourcing">Sourcing</option>
+            <option value="manufacturing">Manufacturing</option>
+            <option value="transporting">Transporting</option>
+        </select>
+        <button id="photo" type="button" onclick="snap()">Take Picture</button>
+        <input type="text" name="photo" id="photoInput" hidden>
+        <input type="number" name="chocolates" id="chocolates" placeholder="No. of chocolates">
+        <input type="text" name="address" id="address" placeholder="address">
+        <input type="submit" value="submit">
+    </form>
+        <video id="video" width="360" height="720" autoplay></video>
+        <button id="snap">Snap Photo</button>
+        <canvas id="canvas" width="360" height="720" hidden></canvas>
+    <script>
+        var input = document.getElementById('tasks');
+        var photo = document.getElementById('photo');
+        var chocolates = document.getElementById('chocolates');
+        var photoInput = document.getElementById('photoInput');
+        var address = document.getElementById('address');
+        var video = document.getElementById('video');
+        var snapBtn = document.getElementById('snap');
+
+        function changeForm(){
+            if(input.value == 'sourcing'){
+                address.style.display = 'none';
+                chocolates.style.display = 'none';
+                photo.style.display = 'block';
+            }else if(input.value == 'manufacturing'){
+                address.style.display = 'none';
+                chocolates.style.display = 'block';
+                photo.style.display = 'none';
+                video.style.display = 'none'
+                snapBtn.style.display = 'none'
+            }else if(input.value == 'transporting'){
+                address.style.display = 'block';
+                chocolates.style.display = 'none';
+                photo.style.display = 'none';
+                video.style.display = 'none'
+                snapBtn.style.display = 'none'
+            }else{
+                address.style.display = 'none';
+                chocolates.style.display = 'none';
+                photo.style.display = 'none';
+                video.style.display = 'none'
+                snapBtn.style.display = 'none'
+            }
+        }
+
+        function snap(){
+            video.style.display = 'block'
+            snapBtn.style.display = 'block'
+            if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices.getUserMedia({ video: {facingMode: 'user'}})
+                .then(function(stream) {
+                    video.srcObject = stream;
+                    video.play();
+                })
+            }
+
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+
+            snapBtn.addEventListener("click", function() {
+                photoInput.value = canvas.toDataURL("image/png")
+                video.style.display = 'none'
+                snapBtn.style.display = 'none'
+            });
+        }
+    </script>
+</body>
+</html>
