@@ -1,4 +1,33 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+<script>
+    const notyf = new Notyf({
+        duration: 1500,
+        position: { x: "left", y: "bottom" },
+    });
 
+    function chosen(taskid){
+        fetch(`/taskinfo/chosen?taskid=${taskid}`, {method: 'GET'})
+        .then(() => {
+            window.location.reload();
+        }).catch((err) => console.log(err))
+    }
+
+    function verify(taskid, typeOfTask){
+        fetch(`/taskinfo/verify?taskid=${taskid}&typeOfTask=${typeOfTask}`, {method: 'GET'})
+        .then(async (res)=>{
+            const resp = await res.json()
+            if(resp.success){
+                notyf.success("Task verified!");
+                setTimeout(() => {
+                    window.location.href = '/profile'
+                }, 1500)
+            }
+        })
+        .catch(err=>console.log(err))
+    }
+
+</script>
 <h1 id="details_heading">Task Details</h1>
 <div id="details_flex">
     <div id="details_title"><%=task.title%></div>
@@ -25,22 +54,3 @@
     </p>
     <% } %>
 </div>
-
-<script>
-    function chosen(taskid){
-        fetch(`http://localhost:3000/taskinfo/chosen?taskid=${taskid}`, {method: 'GET'})
-        .then(() => {
-            window.location.reload();
-        }).catch((err) => console.log(err))
-    }
-
-    function verify(taskid, typeOfTask){
-        fetch(`http://localhost:3000/taskinfo/verify?taskid=${taskid}&typeOfTask=${typeOfTask}`, {method: 'GET'})
-        .then(()=>{
-            // add notyf or toast here
-            window.location.reload();
-        })
-        .catch(err=>console.log(err))
-    }
-
-</script>

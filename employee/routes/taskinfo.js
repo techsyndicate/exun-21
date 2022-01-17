@@ -57,7 +57,7 @@ router.get('/verify', isAuthorized, (req,res)=>{
                 user.markModified('currentTasks')
                 user.markModified('completedTasks')
                 user.save()
-                .then(res.send('completed'))
+                .then(res.json({success: true}))
                 .catch(err=>console.log(err))
             })
             .catch(err=>console.log(err))
