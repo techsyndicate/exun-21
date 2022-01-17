@@ -15,7 +15,7 @@
 <h2>Not chosen</h2>
 <div class="dash_flex">
 <% for (var i = 0; i < task.length; i++){ %>
-    <% if (task[i].acceptedBy != user._id){ %>
+    <% if (task[i].acceptedBy != user._id && task[i].isAccepted == false){ %>
         <div id="task" onclick='window.location.href = "/taskinfo?taskid=<%= task[i]._id%>"'>
             <div class='task_title'><%= task[i].title %></div>
             <div class='task_type'><%= task[i].typeOfTask.slice(0, 1).toUpperCase() %></div>
