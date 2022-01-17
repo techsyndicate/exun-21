@@ -1,22 +1,35 @@
 Title <%=task.title%><br>
 Description <%=task.description%><br>
 Type <%=task.typeOfTask%><br>
-<% if (task.isAccepted){ %>
-    <button type="button" class="btn btn-choose">
+<% if (task.isAccepted == true && task.isCompleted == false){ %>
+    <button type="button" class="btn btn-choose" onclick="verify('<%=task._id%>','<%=task.typeOfTask%>')">
         Verify
     </button>
-<% } else { %>
+<% } else if(task.isAccepted == false && task.isCompleted == false) { %>
     <button type="button" class="btn btn-choose" onclick="chosen('<%=task._id%>')">
         Choose
     </button>
-<% } %>
+<% } else if(task.isAccepted == true && task.isCompleted == true){%>
+    <p>
+        You have completed this task.
+    </p>
+    <% } %>
 
 <script>
     function chosen(taskid){
         fetch(`http://localhost:3000/taskinfo/chosen?taskid=${taskid}`, {method: 'GET'})
         .then(() => {
-            console.log('hello bhai')
             window.location.reload();
         }).catch((err) => console.log(err))
     }
+
+    function verify(taskid, typeOfTask){
+        fetch(`http://localhost:3000/taskinfo/verify?taskid=${taskid}&typeOfTask=${typeOfTask}`, {method: 'GET'})
+        .then(()=>{
+            // add notyf or toast here
+            window.location.reload();
+        })
+        .catch(err=>console.log(err))
+    }
+
 </script>
