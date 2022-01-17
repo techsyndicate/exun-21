@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+@font-face {
+    font-family: "Poppins-bold";
+    src: url('../assets/fonts/Poppins-Bold.ttf');
+}
+
 body{
     background-color: #6B4B3E;
     font-family: "Poppins", sans-serif;
@@ -245,4 +251,72 @@ body{
 
 a {
     text-decoration: none;
+}
+
+/*---------------------------------task-details---------------------------------*/
+
+#details_heading {
+    text-align: center;
+    color: #EBC999;
+    font-family: 'Poppins-bold';
+}
+
+#details_title {
+    color: #FEF3E4;
+    font-weight: normal;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+#details_flex {
+    display: flex;
+    flex-direction: row;
+    vertical-align: middle;
+    align-items: center;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#details_type {
+    border-radius: 3px;
+    padding-left: 6px;
+    padding-right: 6px;
+    font-size: 10px;
+    display: table-cell;
+    line-height: normal;
+    text-align: center;
+    align-items: center;
+    color: #EBC999;
+    border: 1px solid #FEF3E4;
+    height: 20px;
+}
+
+#details_type > div {
+    vertical-align: middle;
+    justify-content: center;
+    margin-top: 2px;
+}
+
+#task_description {
+    padding-left: 10px;
+    line-height: 1.4;
+    padding-right: 10px;
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+.btn-choose {
+    display: block;
+    margin: auto;
+    margin-top: 50px;
+    background: #EBC999;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-family: 'Poppins', sans-serif;
+    color: #01161E;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 8px;
+    padding-bottom: 8px;
 }

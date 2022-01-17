@@ -1,12 +1,19 @@
-Title <%=task.title%><br>
-Description <%=task.description%><br>
-Type <%=task.typeOfTask%><br>
+
+<h1 id="details_heading">Task Details</h1>
+<div id="details_flex">
+    <div id="details_title"><%=task.title%></div>
+    <div id='details_type'>
+        <div><%=task.typeOfTask%></div>
+    </div>
+</div>
+<div id="task_description"><%=task.description%></div>
+<div id="details_btn">
 <% if (task.isAccepted == true && task.isCompleted == false){ %>
-    <button type="button" class="btn btn-choose" onclick="verify('<%=task._id%>','<%=task.typeOfTask%>')">
+    <button type="button" class="btn-choose" onclick="verify('<%=task._id%>','<%=task.typeOfTask%>')">
         Verify
     </button>
 <% } else if(task.isAccepted == false && task.isCompleted == false) { %>
-    <button type="button" class="btn btn-choose" onclick="chosen('<%=task._id%>')">
+    <button type="button" class="btn-choose" onclick="chosen('<%=task._id%>')">
         Choose
     </button>
 <% } else if(task.isAccepted == true && task.isCompleted == true){%>
@@ -14,6 +21,7 @@ Type <%=task.typeOfTask%><br>
         You have completed this task.
     </p>
     <% } %>
+</div>
 
 <script>
     function chosen(taskid){
