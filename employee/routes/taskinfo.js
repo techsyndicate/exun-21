@@ -29,4 +29,40 @@ router.get('/chosen', isAuthorized, (req, res) => {
     }).catch((err) => console.log(err))
 })
 
+router.get('/verify', isAuthorized, (req,res)=>{
+    if(req.query.typeOfTask == 'sourcing'){
+        // do stuff here
+        update()
+    }else if(req.query.typeOfTask == 'manufacturing'){
+        // do stuff here
+        update()
+    }else if(req.query.typeOfTask == 'transporting'){
+        // do stuff here
+        update()
+    }
+
+    function update(){
+        Tasks.findById(req.query.taskid)
+        .then(task=>{
+            task.isCompleted = true
+            task.save()
+            Users.findById(req.session.user)
+            .then(user=>{
+                const index = user.currentTasks.indexOf(req.query.taskid);
+                if (index > -1) {
+                    user.currentTasks.splice(index, 1);
+                }
+                user.completedTasks.push(req.query.taskid)
+                user.markModified('currentTasks')
+                user.markModified('completedTasks')
+                user.save()
+                .then(res.send('completed'))
+                .catch(err=>console.log(err))
+            })
+            .catch(err=>console.log(err))
+        })
+        .catch(err=>console.log(err))
+    }
+})
+
 module.exports = router
