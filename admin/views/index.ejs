@@ -6,11 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
     <script src="https://apis.mapmyindia.com/advancedmaps/v1/aa6ca1e6c399bc880ca03d0e1c03b197/map_load?v=2.1"></script>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <style>
     #map {
-        height: 500px;
-        width: 100%;
+        height: 50vw;
+        width: 65%;
+        margin-top: 2.5vw;
+        margin-left: 32.5vw;
+        border-radius: 10px;
     }
 </style>
 <script>
@@ -91,9 +95,9 @@
     
         function loadAllUsers() {
             var icon = L.icon({
-                iconUrl: 'https://cdn.discordapp.com/attachments/931395342304424017/932398563315560500/marker.png',
+                iconUrl: 'https://media.discordapp.net/attachments/740981051098398751/932690610626895932/chocolate-icon-3-removebg-preview.png',
                 iconRetinaUrl: 'https://cdn.discordapp.com/attachments/931395342304424017/932398563315560500/marker.png',
-                iconSize: [30, 30],
+                iconSize: [35, 35],
                 popupAnchor: [-3, -15]
             });
             for (let i = 0; i < users.length; i++) {
@@ -109,6 +113,15 @@
     getUsers()
 </script>
 <body>
+    <div class="admin-nav">
+        <h1>
+            App Name
+        </h1>
+        <ul>
+            <li><a href="">Leaderboard</a></li>
+            <li><a href="/admin/add">Add Task</a></li>
+        </ul>
+    </div>
     <div id="map"></div>
 </body>
 </html>

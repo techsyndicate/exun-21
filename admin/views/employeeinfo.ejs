@@ -1,28 +1,65 @@
-<p>Name: <%= user.name %></p>
-<p>Email: <%= user.email %></p>
-<p>Caterpillars: <%= user.caterpillars %></p>
-
-<h2 id="tasks_h2">Current Tasks</h2>
-<div class="dash_flex">
-    <% for (var i = 0; i < tasks.length; i++){ %>
-        <% if (user.currentTasks.indexOf(tasks[i]._id) != -1) { %>
-            <div class="task-container" onclick='window.location.href = "/admin/taskinfo?id=<%= tasks[i]._id%>"'>
-                <div class='task_title'><%= tasks[i].title %></div>
-                <div class='task_type'><%= tasks[i].typeOfTask.slice(0, 1).toUpperCase() %></div>
-            </div>
+<link rel="stylesheet" href="/css/styles.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+rel="stylesheet">
+<style>
+    .material-icons-outlined{
+        font-family: 'Material Icons', sans-serif;
+    }
+</style>
+<div class="admin-nav">
+    <img src="<%=user.pfp%>" alt="<%=user.name%>'s pic">
+    <div class="user-info">
+        <p> <span>Name:</span> <%= user.name %></p>
+        <p><span>Email:</span> <%= user.email %></p>
+        <p><span>Caterpillars:</span> <%= user.caterpillars %></p>
+    </div>
+    <br><br><br>
+    <a href="/admin" id="back">Back</a>
+</div>
+<div class="user-task-div">
+    <h2 id="tasks_h2">Current Tasks</h2>
+    <div class="dash_flex">
+        <% for (var i = 0; i < tasks.length; i++){ %>
+            <% if (user.currentTasks.indexOf(tasks[i]._id) != -1) { %>
+                <div class="task-container" onclick="modal()" >
+                    <div class='task_title'><%= tasks[i].title %></div>
+                    <div class='task_type'><%= tasks[i].typeOfTask.slice(0, 1).toUpperCase() %></div>
+                </div>
+            <% } %>
         <% } %>
-    <% } %>
+    </div>
+    <h2 id="tasks_h2">Completed Tasks</h2>
+    <div class="dash_flex">
+        <% for (var i = 0; i < tasks.length; i++){ %>
+            <% if (user.completedTasks.indexOf(tasks[i]._id) != -1) { %>
+                 <div class="task-container"  onclick="modal()">
+                    <div class='task_title'><%= tasks[i].title %></div>
+                    <div class='task_type'><%= tasks[i].typeOfTask.slice(0, 1).toUpperCase() %></div>
+                </div>
+            <% } %>
+        <% } %>
+    </div>
 </div>
-
-<h2 id="tasks_h2">Completed Tasks</h2>
-<div class="dash_flex">
-<% for (var i = 0; i < tasks.length; i++){ %>
-    <% if (user.completedTasks.indexOf(tasks[i]._id) != -1) { %>
-        <div class="task-container" onclick='window.location.href = "/admin/taskinfo?id=<%= tasks[i]._id%>"'>
-            <div class='task_title'><%= tasks[i].title %></div>
-            <div class='task_type'><%= tasks[i].typeOfTask.slice(0, 1).toUpperCase() %></div>
+<div class="modal-div" style="margin-left: -.65vw;">
+    <div class="task-info-modal">
+        <div class="modal-close" onclick="closeModal()">
+            <span class="material-icons-outlined">
+                close
+            </span>
         </div>
-    <% } %>
-<% } %>
+    </div>
 </div>
+<script>
+    function modal(){
+        var modal = document.querySelector(".modal-div");;
+        modal.style.display = "block";
+    }
+    function closeModal(){
+        var modal = document.querySelector(".modal-div");;
+        modal.style.display = "none";
+    }
+</script>
+
+
+
 
