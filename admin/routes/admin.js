@@ -10,6 +10,12 @@ router.get('/add', (req, res) => {
     res.render('add-task')
 })
 
+router.get('/users', (req, res) => {
+    Users.find({}).then((users) => {
+        res.json({users})
+    }).catch((err) => console.log(err))
+})
+
 router.get('/employee/:id', (req,res)=>{
     Users.findById(req.params.id)
     .then(user=>{

@@ -16,19 +16,24 @@
 <script>
     var map = null;
     var marker = [];
-    let users = [
-        {
-            last_known_location: [29.8355, 77.3910],
-            _id: '1231314124124'
-        },
-        {
-            last_known_location: [28.8355, 77.3910],
-            _id:'542344141331'
-        }
-    ];
+    let users = [];
     let currentPosition = [];
     let currentMarkerLocation = [];
-    navigator.geolocation.getCurrentPosition(showPosition);
+
+    function getUsers() {
+        fetch('/admin/users', {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(async (res) => {
+            const resp = await res.json()
+            users = resp.users;
+            navigator.geolocation.getCurrentPosition(showPosition);
+        })
+    }
 
     function showPosition(position) {
         currentPosition = [position.coords.latitude, position.coords.longitude];
@@ -67,7 +72,7 @@
             mk.on("click", async function(e) {
                 mapmyindia_fit_markers_into_bound(position);
                 currentMarkerLocation = [position.lat, position.lng];
-                console.log(title)
+                window.open(`/admin/employee/${title}`)
             });
             return mk;
         }
@@ -88,7 +93,7 @@
             var icon = L.icon({
                 iconUrl: 'https://cdn.discordapp.com/attachments/931395342304424017/932398563315560500/marker.png',
                 iconRetinaUrl: 'https://cdn.discordapp.com/attachments/931395342304424017/932398563315560500/marker.png',
-                iconSize: [50, 50],
+                iconSize: [30, 30],
                 popupAnchor: [-3, -15]
             });
             for (let i = 0; i < users.length; i++) {
@@ -97,9 +102,11 @@
                 marker.push(addMarker(position, icon, users[i]._id, false));
             }
         }
-        markCurrentLocation();
+        // markCurrentLocation();
         loadAllUsers();
     }
+
+    getUsers()
 </script>
 <body>
     <div id="map"></div>

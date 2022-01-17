@@ -32,6 +32,7 @@ app.use(
       resave: false,
     })
   );
+app.use(express.json());
 
 app.use('/', indexRoute)
 app.use('/auth', authRoute)

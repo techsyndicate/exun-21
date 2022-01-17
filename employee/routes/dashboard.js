@@ -12,4 +12,13 @@ router.get('/', isAuthorized, (req, res) => {
     }).catch((err) => console.log(err))
 });
 
+router.post('/update', isAuthorized, (req, res) => {
+    User.findById(req.session.user).then((user) => {
+        user.last_known_location = req.body.currentPosition
+        user.save().then((user) => {
+            res.json({success: true})
+        }).catch((err) => console.log(err))
+    }).catch((err) => console.log(err))
+});
+
 module.exports = router

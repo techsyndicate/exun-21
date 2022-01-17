@@ -1,3 +1,29 @@
+<script>
+    navigator.geolocation.getCurrentPosition(showPosition);
+
+    function showPosition(position) {
+        currentPosition = [position.coords.latitude, position.coords.longitude];
+        console.log(currentPosition);
+        fetch("/dashboard/update", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ currentPosition }),
+        })
+        .then(async (response) => {
+            const data = await response.json();
+            if (data.success === true) {
+                console.log("location updated");
+            } else {
+                window.location.href = '/dashboard'
+            }
+        })
+        .catch((err) => {console.log(err)});
+    }
+</script>
+
 <h1 id="tasks_heading">Tasks</h1>
 
 <h2 id="tasks_h2">Chosen</h2>
