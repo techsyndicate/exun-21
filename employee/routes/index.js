@@ -2,7 +2,6 @@ const router = require('express').Router()
 const User = require('../models/Users');
 const isAuthorized = require('../config/checker').isAuthorized
 router.get('/', (req, res) => {
-
     res.render('index')
 })
 
