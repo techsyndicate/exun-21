@@ -33,7 +33,9 @@ router.get('/taskinfo', (req,res)=>{
     const taskId = req.query.id
     Tasks.findById(taskId)
     .then(task=>{
-        res.render('taskinfo',{task:task})
+        res.json({
+            body : task
+        })
     })
     .catch(err=>console.log(err))
 })
