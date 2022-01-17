@@ -7,8 +7,8 @@ router.post('/', (req, res) => {
     let meta = {}
 
     if(typeOfTask == 'sourcing'){
-        const photo = req.body.photo
-        meta = {photo: photo}
+        const idealColor = req.body.photo
+        meta = {idealColor}
     }else if(typeOfTask == 'manufacturing'){
         const chocolates = req.body.chocolates
         meta = {'chocolates': chocolates}
@@ -17,10 +17,13 @@ router.post('/', (req, res) => {
         axios.get(`https://open.mapquestapi.com/geocoding/v1/address?key=crii51WOVIIPfThLN5u02uDuhTajcIAv&location=${address}`)
         .then(res => {
             const resp = res.data
-            const fullAddress = resp.results[0].providedLocation.location
-            const coords = resp.results[0].locations[0].latLng
-            meta = {fullAddress: fullAddress, coords: coords}
-            console.log(meta)
+            let coords = {}
+            if (resp.results[0].locations.length > 0) {
+                coords = resp.results[0].locations[0].latLng
+            } else {
+                coords = {lat: 0, lng: 0}
+            }
+            meta = {address: address, coords: coords}
         })
         .catch(err => console.log(err))
     }

@@ -10,8 +10,8 @@
             display: none;
         }
     </style>
+    <script src="/js/color-thief.js"></script>
 </head>
-<body>
     <form action="/tasks" method="post">
         <input type="text" name="title" placeholder="title">
         <textarea type="text" cols="5" rows="4" name="description" placeholder="description"></textarea>
@@ -80,8 +80,26 @@
             var canvas = document.getElementById('canvas');
             var context = canvas.getContext('2d');
 
-            snapBtn.addEventListener("click", function() {
-                photoInput.value = canvas.toDataURL("image/png")
+            snapBtn.addEventListener("click", async function() {
+                context.drawImage(video, 0, 0, 360, 720);
+                const colorThief = new ColorThief();
+                const img = document.createElement('img');
+                const b64str = canvas.toDataURL('image/jpeg')
+                console.log(b64str);
+                await new Promise((r) => {
+                    img.src = b64str;
+                    img.onload = r;
+                })
+                const rgba = colorThief.getColor(img, 5);
+                function rgbToHex(r, g, b) {
+                    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+                }
+                if (!rgba) {
+                    photoInput.value = 'rgba(0,0,0,0)'; // seems to happen on white image
+                } else {
+                    photoInput.value = rgbToHex(rgba[0], rgba[1], rgba[2]);
+                }
+                console.log(photoInput.value);
                 video.style.display = 'none'
                 snapBtn.style.display = 'none'
             });
