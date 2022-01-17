@@ -5,13 +5,18 @@ const Tasks = require('../models/Tasks')
 router.post('/', (req, res) => {
     const {title, description, typeOfTask} = req.body
     let meta = {}
+    let caterpillarValue = 0
 
     if(typeOfTask == 'sourcing'){
         const idealColor = req.body.photo
         meta = {idealColor}
+        caterpillarValue = 10
+        addToDb()
     }else if(typeOfTask == 'manufacturing'){
         const chocolates = req.body.chocolates
         meta = {'chocolates': chocolates}
+        caterpillarValue = 15
+        addToDb()
     }else{
         const address = req.body.address
         axios.get(`https://open.mapquestapi.com/geocoding/v1/address?key=crii51WOVIIPfThLN5u02uDuhTajcIAv&location=${address}`)
@@ -24,11 +29,13 @@ router.post('/', (req, res) => {
                 coords = {lat: 0, lng: 0}
             }
             meta = {address: address, coords: coords}
+            caterpillarValue = 20
+            addToDb()
         })
         .catch(err => console.log(err))
     }
 
-    setTimeout(() => {
+    function addToDb(){
         const newTask = new Tasks({
             title: title,
             description: description,
@@ -36,6 +43,7 @@ router.post('/', (req, res) => {
             typeOfTask: typeOfTask,
             isAccepted: false,
             isCompleted: false,
+            caterpillarValue: caterpillarValue
         })
     
         newTask.save()
@@ -44,7 +52,8 @@ router.post('/', (req, res) => {
             res.redirect('/admin')
         })
         .catch(err=>console.log(err))
-    }, 2000)
+    }
+        
 })
 
 module.exports = router

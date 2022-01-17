@@ -10,6 +10,10 @@ const taskSchema = new mongoose.Schema({
     meta: {
         type: Object,
     },
+    caterpillarValue: {
+        type: Number,
+        default: 0,
+    },
     typeOfTask: {
         type: String,
     },

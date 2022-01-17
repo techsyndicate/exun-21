@@ -63,12 +63,13 @@ rel="stylesheet">
         modal.style.display = "block";
         
         fetch(`/admin/taskinfo?id=${taskid}`, {method: 'GET'})
-        .then((res)=>{
+        .then(async (resp)=>{
+            res = await resp.json();
             loader.style.display = "none";
-            infoDiv.innerHTML = `<p>Task: ${res.body.title}</p>
+            infoDiv.innerHTML = `<p>Task: ${res.title}</p>
             <p>Description: ${res.body.description}</p>
             <p>Chosen on: ${res.body.acceptedDate}</p>
-            <p>Caterpillars: Daalne hain abhi</p>`
+            <p>Caterpillars: ${res.caterpillarValue}</p>`
         })
         .catch(err=>console.log(err));
 
