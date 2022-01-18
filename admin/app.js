@@ -18,6 +18,7 @@ app.use(express.static(__dirname+'/public'));
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 
+app.get('/', (_, res) => { res.redirect('/admin') })
 app.use('/admin', adminRoute)
 app.use('/tasks', taskRoute)
 

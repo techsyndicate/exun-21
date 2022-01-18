@@ -2,6 +2,7 @@ const router = require('express').Router()
 const isAuthorized = require('../config/checker').isAuthorized
 const Tasks = require('../models/Tasks')
 const Users = require('../models/Users')
+const axios = require('axios')
 
 router.get('/', isAuthorized, (req, res) => {
     const id = req.query.taskid;
@@ -29,22 +30,58 @@ router.get('/chosen', isAuthorized, (req, res) => {
     }).catch((err) => console.log(err))
 })
 
-router.get('/verify', isAuthorized, (req,res)=>{
+router.post('/verify', isAuthorized, (req,res)=>{
     if(req.query.typeOfTask == 'sourcing'){
-        // do stuff here
-        update(10);
+        Tasks.findById(req.query.taskid)
+        .then((task)=>{
+            if (Math.abs(Number(task.meta.idealColor) - Number(req.body.actualColor)) < 50){
+                update(10, req.body);
+            } else {
+                return res.json({success: false})
+            }
+        })
     }else if(req.query.typeOfTask == 'manufacturing'){
-        // do stuff here
-        update(15);
+        Tasks.findById(req.query.taskid)
+        .then((task)=>{
+            if (req.body.actualWeight.length > 0) {
+                if (Number(req.body.actualWeight) == Number(task.meta.chocolates)) {
+                    update(15, req.body);
+                } else {
+                    return res.json({success: false})
+                }
+            } else {
+                return res.json({success: false})
+            }
+        })
     }else if(req.query.typeOfTask == 'transporting'){
-        // do stuff here
-        update(20);
+        Tasks.findById(req.query.taskid)
+        .then((task) => {
+            const originCoords = req.body.actualLocation
+            const destinationCoords = task.meta.coords
+            let url = `https://api.radar.io/v1/route/distance?origin=${originCoords[0]},${originCoords[1]}&destination=${destinationCoords.lat},${destinationCoords.lng}&modes=car&units=metric`;
+            axios.get(url, {
+                headers: {
+                    'Authorization': 'prj_live_sk_023b2379b86ae218901dd83336e69dce2f8276ac'
+                }
+            })
+            .then((response) => {
+                const data = response.data
+                console.log(data)
+                if (data.routes.car.distance.value < 2000) {
+                    update(20, req.body);
+                } else {
+                    return res.json({success: false})
+                }
+            })
+            .catch(err => console.log(err))
+        })
     }
 
-    function update(caterpillarValue){
+    function update(caterpillarValue, verifyMeta){
         Tasks.findById(req.query.taskid)
         .then(task=>{
             task.isCompleted = true
+            task.meta.verifyMeta = verifyMeta;
             task.save()
             Users.findById(req.session.user)
             .then(user=>{

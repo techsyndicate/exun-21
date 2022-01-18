@@ -154,9 +154,9 @@
                     return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
                 }
                 if (!rgba) {
-                    photoInput.value = 'rgba(0,0,0,0)'; // seems to happen on white image
+                    photoInput.value = 0;
                 } else {
-                    photoInput.value = rgbToHex(rgba[0], rgba[1], rgba[2]);
+                    photoInput.value = rgba[0]
                 }
                 console.log(photoInput.value);
                 video.style.display = 'none'

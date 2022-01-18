@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.css" />
 <script src="https://cdn.jsdelivr.net/npm/notyf@3/notyf.min.js"></script>
+<script src="/js/color-thief.js"></script>
 <script>
     const notyf = new Notyf({
         duration: 1500,
@@ -13,27 +14,144 @@
         }).catch((err) => console.log(err))
     }
 
+    function navigate(lat, lng) {
+        window.open(`https://www.google.com/maps/search/?api=1&query=${lat},${lng}`);
+    }
+    
     function verify(taskid, typeOfTask){
-        fetch(`/taskinfo/verify?taskid=${taskid}&typeOfTask=${typeOfTask}`, {method: 'GET'})
-        .then(async (res)=>{
-            const resp = await res.json()
-            if(resp.success){
-                notyf.success("Task verified!");
-                setTimeout(() => {
-                    window.location.href = '/profile'
-                }, 1500)
+        let verifyMeta = {}
+        if (typeOfTask == "sourcing") {
+            verifyMeta = { 'actualColor': document.getElementById('photoInput').value }
+            verifyTask()
+        } else if (typeOfTask == "manufacturing") {
+            verifyMeta = { 'actualWeight': document.getElementById("ocrText").value }
+            verifyTask()
+        } else if (typeOfTask == "transporting") {
+            navigator.geolocation.getCurrentPosition(showPosition);
+            function showPosition(position) {
+                const currentPosition = [position.coords.latitude, position.coords.longitude];
+                verifyMeta = { 'actualLocation': currentPosition }
+                verifyTask()
             }
-        })
-        .catch(err=>console.log(err))
+        }
+        function verifyTask() {
+            fetch(`/taskinfo/verify?taskid=${taskid}&typeOfTask=${typeOfTask}`, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(verifyMeta),
+            })
+            .then(async (res)=>{
+                const resp = await res.json()
+                if(resp.success){
+                    notyf.success("Task verified!");
+                    setTimeout(() => {
+                        window.location.href = '/profile'
+                    }, 1500)
+                } else {
+                    notyf.error("Task verification failed!");
+                }
+            })
+            .catch(err=>console.log(err))
+        }
     }
 
+</script>
+<script>
+    window.onload = () => {
+        var photo = document.getElementById('photo');
+        var photoInput = document.getElementById('photoInput');
+        var video = document.getElementById('video');
+        var snapBtn = document.getElementById('snap');
+        photo.addEventListener('click',()=>{
+            document.querySelector('.modal-div').style.display = 'block';
+        })
+        snapBtn.addEventListener('click',()=>{
+            document.querySelector('.modal-div').style.display = 'none';
+        })
+    }
+    function snap(){
+        var photo = document.getElementById('photo');
+        var photoInput = document.getElementById('photoInput');
+        var video = document.getElementById('video');
+        var snapBtn = document.getElementById('snap');
+        video.style.display = 'block'
+        snapBtn.style.display = 'block'
+        if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            navigator.mediaDevices.getUserMedia({ video: {facingMode: 'environment'}})
+            .then(function(stream) {
+                video.srcObject = stream;
+                video.play();
+            })
+        }
+
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+
+        snapBtn.addEventListener("click", async function() {
+            context.drawImage(video, 0, 0, 360, 720);
+            const colorThief = new ColorThief();
+            const img = document.createElement('img');
+            const b64str = canvas.toDataURL('image/jpeg')
+            console.log(b64str);
+
+            var myHeaders = new Headers();
+            myHeaders.append("apikey", "fdc893b8fd88957");
+
+            var formdata = new FormData();
+            formdata.append("language", "eng");
+            formdata.append("isOverlayRequired", "false");
+            formdata.append("base64Image", b64str);
+            formdata.append("iscreatesearchablepdf", "false");
+            formdata.append("issearchablepdfhidetextlayer", "false");
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: formdata,
+                redirect: 'follow'
+            };
+            fetch("https://api.ocr.space/parse/image", requestOptions)
+                .then(async(result) => {
+                    const resp = await result.json()
+                    console.log(resp);
+                    let textFromOCR = ""
+                    resp.ParsedResults.forEach(element => {
+                        textFromOCR += element.ParsedText
+                    });
+                    document.getElementById("ocrText").setAttribute("value", textFromOCR)
+                    alert("Picture taken!")
+                })
+                .catch(error => console.log('error', error));
+        
+            await new Promise((r) => {
+                img.src = b64str;
+                img.onload = r;
+            })
+            const rgba = colorThief.getColor(img, 5);
+            function rgbToHex(r, g, b) {
+                return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+            }
+            if (!rgba) {
+                photoInput.value = 0
+            } else {
+                photoInput.value = rgba[0]
+            }
+            console.log(photoInput.value);
+            video.style.display = 'none'
+            snapBtn.style.display = 'none'
+            alert("Picture taken!")
+        });
+    }
 </script>
 <div class="login-div">
     <h2 id="details_heading">Task Details</h2>
     <div id="details_flex">
         <div id="details_title"><%=task.title%></div>
         <div id="details_thumb">
-            <div id='details_type'>
+            <div id='details_type' style="width: 25vw;">
                 <div><%=task.typeOfTask%></div>
             </div>
             <div class="caterpillar-card"  style="background-color: #EBC999; margin-left: 3.5vw;    border-radius: 5px;width: 20vw; height: 7.5vw;  margin-top:2.5vw; padding-bottom: 2.5px;padding-left: 7.5px;padding-top: 2.5px;padding-right: 7.5px;">
@@ -46,15 +164,29 @@
         </div>
         
     </div>
+    <div class="modal-div">
+        <div class="snap-div">
+            <video id="video" width="360" height="720" autoplay></video>
+            <canvas id="canvas" width="360" height="720" hidden></canvas>
+            <button id="snap">Snap Photo</button>
+        </div>
+    </div>
     <div id="task_description" style="z-index: 2;"><%=task.description%></div>
     <div style="background-color: transparent; position: fixed; width: 80%; z-index: 3;">
         <div id="details_btn">
             <% if (task.isAccepted == true && task.isCompleted == false){ %>
+                <% if (task.typeOfTask == "transporting"){ %>
+                    <button type="button" onclick="navigate('<%=task.meta.coords.lat%>', '<%=task.meta.coords.lng%>')" style="margin-top: 40vw !important;">Start Delivery</button>
+                <% } else { %>
+                    <button id="photo" type="button" onclick="snap()" style="margin-top: 40vw !important;">Take Picture</button>
+                    <input type="text" name="photo" id="photoInput" hidden>
+                    <input type="text" id="ocrText" hidden>
+                <% } %>
                 <button type="button" class="btn-choose" onclick="verify('<%=task._id%>','<%=task.typeOfTask%>')">
                     Verify
                 </button>
             <% } else if(task.isAccepted == false && task.isCompleted == false) { %>
-                <button type="button" class="btn-choose" onclick="chosen('<%=task._id%>')">
+                <button type="button" class="btn-choose" onclick="chosen('<%=task._id%>')" style="margin-top: 50vw !important;">
                     Choose
                 </button>
             <% } else if(task.isAccepted == true && task.isCompleted == true){%>

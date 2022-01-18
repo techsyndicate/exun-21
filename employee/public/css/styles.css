@@ -385,7 +385,7 @@ a {
 .btn-choose {
     display: block;
     margin: auto;
-    margin-top: 65vw !important;
+    margin-top: 5vw !important;
     background: #EBC999;
     border: none;
     border-radius: 5px;
@@ -396,4 +396,54 @@ a {
     padding-right: 30px;
     padding-top: 8px;
     padding-bottom: 8px;
+}
+.modal-div{
+    height: 105%;
+    width: 105%;
+    background-color: rgba(0,0,0,0.75);
+    margin-top: -35vh;
+    z-index: 5;
+    position: absolute;
+    margin-left: -10vw;
+    display: none;
+}
+.snap-div{
+    background-color: transparent;
+    width: 55vw;
+    height: 35vw;
+    margin: auto;
+    margin-top: 7.5vw;
+    padding: 10px;
+    border-radius: 10px;
+}
+.snap-div video{
+    margin-left: -20vw !important;
+    margin-top: -30vw !important;
+    margin: auto;
+    display: block;
+}
+.snap-div #snap{
+    position: absolute;
+    margin-top: -20vw;
+    border: none;
+    font-size: 5vw;
+    margin-left: 5vw;
+    font-family: 'Poppins', sans-serif;
+    width: 45vw;
+    height: 8vh;
+    background: #01161E;
+    color: #eee;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.4s ease;
+}
+#snap:hover{
+    transform: translateY(-5px);
+    box-shadow: rgba(0,0,0,0.3) 0px 0px 10px;
+}
+.modal-close{
+    position: absolute;
+    cursor: pointer;
+    font-size: 2.5vw;
+    color: #6B4B3E;
 }
