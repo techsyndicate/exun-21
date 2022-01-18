@@ -28,29 +28,42 @@
     }
 
 </script>
-<h1 id="details_heading">Task Details</h1>
-<div id="details_flex">
-    <div id="details_title"><%=task.title%></div>
-    <div id='details_type'>
-        <div><%=task.typeOfTask%></div>
+<div class="login-div">
+    <h2 id="details_heading">Task Details</h2>
+    <div id="details_flex">
+        <div id="details_title"><%=task.title%></div>
+        <div id="details_thumb">
+            <div id='details_type'>
+                <div><%=task.typeOfTask%></div>
+            </div>
+            <div class="caterpillar-card"  style="background-color: #EBC999; margin-left: 3.5vw;    border-radius: 5px;width: 20vw; height: 7.5vw;  margin-top:2.5vw; padding-bottom: 2.5px;padding-left: 7.5px;padding-top: 2.5px;padding-right: 7.5px;">
+                <span>
+                    <img src="
+                    https://media.discordapp.net/attachments/931395342304424017/932885174457364540/67895-removebg-preview.png" style="width: 7vw;height: 7vw;margin-left: 2.5vw; margin-top: -1.2vw;" alt="">
+                    <p style="color: #01161E; margin-left: 3.5vw;margin-top: -1vw;  font-size: 4.5vw;"><%= task.caterpillarValue%></p> 
+                </span> 
+            </div>
+        </div>
+        
     </div>
-    <div id='details_type'>
-        Value: <div><%=task.caterpillarValue%></div>
+    <div id="task_description" style="z-index: 2;"><%=task.description%></div>
+    <div style="background-color: transparent; position: fixed; width: 80%; z-index: 3;">
+        <div id="details_btn">
+            <% if (task.isAccepted == true && task.isCompleted == false){ %>
+                <button type="button" class="btn-choose" onclick="verify('<%=task._id%>','<%=task.typeOfTask%>')">
+                    Verify
+                </button>
+            <% } else if(task.isAccepted == false && task.isCompleted == false) { %>
+                <button type="button" class="btn-choose" onclick="chosen('<%=task._id%>')">
+                    Choose
+                </button>
+            <% } else if(task.isAccepted == true && task.isCompleted == true){%>
+                <p>
+                    You have completed this task.
+                </p>
+                <% } %>
+            </div>
     </div>
+    
 </div>
-<div id="task_description"><%=task.description%></div>
-<div id="details_btn">
-<% if (task.isAccepted == true && task.isCompleted == false){ %>
-    <button type="button" class="btn-choose" onclick="verify('<%=task._id%>','<%=task.typeOfTask%>')">
-        Verify
-    </button>
-<% } else if(task.isAccepted == false && task.isCompleted == false) { %>
-    <button type="button" class="btn-choose" onclick="chosen('<%=task._id%>')">
-        Choose
-    </button>
-<% } else if(task.isAccepted == true && task.isCompleted == true){%>
-    <p>
-        You have completed this task.
-    </p>
-    <% } %>
-</div>
+

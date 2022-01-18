@@ -1,7 +1,21 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+rel="stylesheet">
+<style>
+    .material-icons-outlined{
+        font-family: 'Material Icons', sans-serif;
+    }
+</style>
 <br>
-<a href="/dashboard" class="back">Back</a>
+<a href="/dashboard" class="back">
+    <span class="material-icons-outlined">
+        chevron_left
+        </span>
+</a>
 
 <div class="profile-div">
+    <h1>
+        Profile
+    </h1>
     <img src="<%=user.pfp%>" alt="<%=user.name%>'s pfp"> <br>
     <div class="details">
         <span>
@@ -10,10 +24,29 @@
         <span>
             Email :
         </span> <%=user.email%> <br>
-        <span>
-            Caterpillars :
-        </span> <%=user.caterpillars%>
-    </div>
+        <div style="display: flex; justify-content: space-between; width: 70vw;">
+            <div class="caterpillar-card">
+                <span>
+                    <img src="
+                    https://media.discordapp.net/attachments/931395342304424017/932885174457364540/67895-removebg-preview.png" alt="">
+                     <p><%=user.caterpillars%></p> 
+                </span> 
+            </div>
+            <div class="caterpillar-card" >
+                <span style="width: 17.5vw;">
+                    <img src="
+                    https://media.discordapp.net/attachments/931395342304424017/932970418107723776/icons8-coffee-beans-100.png" style="width:8.5vw;height:8.5vw; margin-top:0.5vw;" alt="">
+                     <p><%=user.cocoabeans%></p> 
+                </span> 
+            </div>
+        </div>
+        
+            </div>
+    <br>
+    <br>
+    <a>
+        Redeem
+    </a>
     <br>
     <a href="/auth/logout">Logout</a>
 </div>

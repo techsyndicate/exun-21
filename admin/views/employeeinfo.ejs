@@ -11,8 +11,24 @@ rel="stylesheet">
     <div class="user-info">
         <p> <span>Name:</span> <%= user.name %></p>
         <p><span>Email:</span> <%= user.email %></p>
-        <p><span>Caterpillars:</span> <%= user.caterpillars %></p>
     </div>
+    <div style="display: flex; justify-content: space-between; width: 20vw; margin: auto; margin-top: -3.5vw;">
+        <div class="caterpillar-card">
+            <span>
+                <img src="
+                https://media.discordapp.net/attachments/931395342304424017/932885174457364540/67895-removebg-preview.png" alt="">
+                 <p><%=user.caterpillars%></p> 
+            </span> 
+        </div>
+        <div class="caterpillar-card" >
+            <span style="width: 17.5vw;">
+                <img src="
+                https://media.discordapp.net/attachments/931395342304424017/932970418107723776/icons8-coffee-beans-100.png" alt="">
+                 <p><%=user.cocoabeans%></p> 
+            </span> 
+        </div>
+    </div>
+    
     <br><br><br>
     <a href="/admin" id="back">Back</a>
 </div>

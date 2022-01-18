@@ -51,34 +51,22 @@ body{
     transform: translateY(-5px);
 }
 @media screen and (max-width: 600px){
-    .login-div{
-        width: 90vw;
-        height: 50vw;
-    }
-    .login-div h1{
-        font-size: 3.5vw;
-    }
-    .login-div p{
-        margin-top: -1.5vw;
-        font-size: 1vw;
-    }
-    .login-div button{
-        font-size: 1.25vw;
-        padding: 1vw;
-        margin-top: 1vw;
-        width: 17.5vw;
+    body{
+        padding-right: 5vw;
+        padding-left: 5vw;
     }
     .leaderboard .title{
         text-align: center;
         padding-top: 3.5vw;
         color: #fff;
+        font-family: "Poppins-bold", sans-serif;
         letter-spacing: 1px;
     }
     .leaderboard .leaderboard-content {
         padding-top: 3.5vw;
     }
     .leaderboard-content .leaderboard-table{
-        width: 95vw;
+        width: 88vw;
         border-collapse: collapse;
         padding: 10px;
         color: #fff;
@@ -131,31 +119,33 @@ body{
     }
     #search:focus{
         outline: none;
-        background: #c2a67f;
-        border-radius:5px;
-        border: none;
+        width: 87.5%;
     }
     .back{
-        background: #c2a67f;
         text-decoration: none;
-        color: #eee;
         font-size: 4vw;
-        padding:2vw;
-        padding-left: 5vw;
-        padding-right: 5vw;
-        margin-top: 1.5vw;
+        margin-left: 1.5vw;
         border-radius: 7.5px;
         transition: all 0.4s ease;
         cursor: pointer;
+        font-size: 7.5vw;
         display: block;
-        width: 10vw;
+        color: #01161E;
+        font-weight: bolder;
     }
     .back:hover{
         transform: translateY(-5px);
         box-shadow: rgba(0,0,0,0.2) 0px 0px 10px;
     }
     .profile-div{
-        margin-top: 30vw;
+        margin-top: 10vw;
+    }
+    .profile-div h1{
+        text-align: center;
+        font-weight: bolder;
+        color: #EBC999;
+        letter-spacing: 1px;
+        font-family: 'Poppins-Bold', sans-serif;
     }
     .profile-div img{
         border-radius: 100%;
@@ -166,7 +156,7 @@ body{
     }
     .profile-div .details{
         display: block;
-        margin-left: 10vw;
+        margin-left: 7.5vw;
         margin-top: 5vw;
         color: #eee;
         letter-spacing: 1px;
@@ -176,16 +166,17 @@ body{
     }
     .profile-div a{
         text-decoration: none;
+        text-align: center;
         color: #eee;
         font-size: 4vw;
         letter-spacing: 1px;
         background: #01161E;
         padding:2vw;
         padding-left: 5vw;
-        padding-right: 5vw;
+        padding-right: 5.5vw;
         display: block;
-        width: 15vw;
         margin: auto;
+        width: fit-content;
         border-radius: 7.5px;
         transition: all 0.4s ease;
         cursor: pointer;
@@ -193,6 +184,65 @@ body{
     .profile-div a:hover{
         transform: translateY(-5px);
         box-shadow: rgba(0,0,0,0.2) 0px 0px 10px;
+    }
+    .login-div{
+        height: 65vh;
+        margin-top: 30%;
+        width: 95%;
+        background: #FEF3E4;
+        border-radius: 10px;
+    }
+    .login-div h1{
+        font-size:12.5vw;
+        margin-top:6.5vw;
+        font-family: "Poppins-Bold", sans-serif;
+    }
+    .login-div p{
+        margin-top: -7.5vw;
+        color: #6B4B3E;
+        font-size: 2.75vw;
+    }
+    .login-div button{
+        margin-top:-7.5vw;
+        width: 45vw;
+        border-radius: 10px;
+        font-size: 3.5vw;
+        background: #6B4B3E;
+        color: #fff ;
+        letter-spacing: 1px;
+        padding:15px;
+    }
+    .caterpillar-card{
+        background-color: #fff ;
+        width: 28vw;
+        margin-top: 5vw;
+        height: 12.5vw;
+        padding-left: 2vw;
+        padding-right: 2vw;
+        border-radius: 7.5px;
+        color: #01161E;
+        display: flex;
+    }
+    .caterpillar-card span{
+        margin-top: 1.5vw;
+        display: flex;
+        width: 20vw;
+    }
+    .caterpillar-card img{
+        width: 10vw;
+        height: 10vw;
+        margin-top: -0.2vw;
+        margin-left: .75vw;
+    }
+    .caterpillar-card span p{
+        margin-top: 0.5vw;
+        font-size: 5.5vw;
+    }
+    .login-div img{
+        width: 35vw;
+        height: 35vw;
+        margin-top: 15vw;
+        margin-left: -2.5vw;
     }
 }
     
@@ -272,58 +322,70 @@ a {
 
 #details_heading {
     text-align: center;
-    color: #EBC999;
+    color: #01161e;
     font-family: 'Poppins-bold';
 }
 
 #details_title {
-    color: #FEF3E4;
-    font-weight: normal;
-    font-size: 20px;
-    margin-right: 10px;
+    color: #6B4B3E;
+    font-weight: bold;
+    text-align: left;
+    font-size: 5.5vw;
+    margin-left: 1.5vw;
 }
 
 #details_flex {
-    display: flex;
+    /* display: flex;
     flex-direction: row;
     vertical-align: middle;
-    align-items: center;
+    align-items: center; */
     padding-left: 10px;
     padding-right: 10px;
 }
-
+#details_thumb{
+    display: flex;
+}
 #details_type {
+    margin-left: 1.5vw;
     border-radius: 3px;
-    padding-left: 6px;
-    padding-right: 6px;
-    font-size: 10px;
-    display: table-cell;
+    padding-left: 7.5px;
+    padding-top: 2.5px;
+    padding-right: 7.5px;
+    font-size: 3.25vw;
+    display: block;
     line-height: normal;
     text-align: center;
     align-items: center;
-    color: #EBC999;
-    border: 1px solid #FEF3E4;
-    height: 20px;
+    color: #01161E;
+    font-weight: bold;
+    border: 2px solid #EBC999;
+    background-color: #EBC999;
+    width: 19.5vw;
+    text-align: center;
+    height: 7.5vw;
+    margin-top: 2.5vw;
+    border-radius: 5px;
 }
 
 #details_type > div {
     vertical-align: middle;
     justify-content: center;
-    margin-top: 2px;
+    margin-top: 3.5px;
 }
 
 #task_description {
-    padding-left: 10px;
-    line-height: 1.4;
-    padding-right: 10px;
-    font-size: 15px;
-    margin-top: 20px;
+    line-height:1.4;
+    font-size: 4vw;
+    max-height: 15vw;
+    margin-top: 5vw;
+    margin-left: 5vw;
+    text-align: left;
+    color: #01161E;
 }
-
 .btn-choose {
     display: block;
     margin: auto;
-    margin-top: 50px;
+    margin-top: 65vw !important;
     background: #EBC999;
     border: none;
     border-radius: 5px;

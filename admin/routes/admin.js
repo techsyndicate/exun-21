@@ -37,5 +37,12 @@ router.get('/taskinfo', (req,res)=>{
     })
     .catch(err=>console.log(err))
 })
-
+router.get('/leaderboard',(req,res)=>{
+    Users.find({}).sort({caterpillars: -1}).then(
+        users=>{
+            res.render('leaderboard',{users})
+        }
+    )
+    .catch(err=>console.log(err))
+})
 module.exports = router

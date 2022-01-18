@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
-
+@font-face {
+    font-family: 'Poppins-bold';
+    src: url('../assets/Poppins-Bold.ttf');
+}
 body{
     background: #6B4B3E;
     font-family: "Poppins", sans-serif;
@@ -8,13 +11,14 @@ body{
     position: absolute;
     background: #fff;
     width: 27.5vw;
-    height: 50vw;
+    height: 90vh;
     margin-left: 2.5vw;
     border-radius: 10px;
     text-align: center;
 }
 .admin-nav h1{
-    margin-top: 25vw;
+    margin-top: 5vw;
+    font-family: 'Poppins-Bold', sans-serif;
     font-size: 3.5vw;
     color: #01161E;
 }
@@ -33,9 +37,85 @@ body{
 .admin-nav ul li{
     margin-top: 1vw;
 }
+.leaderboard{
+    margin-left: 32.5vw;
+    width: 65%;
+    background-color: #fff;
+    height: 90vh;
+    margin-top: 2.5vw;
+    border-radius: 10px;
+}
+.leaderboard .title{
+    text-align: center;
+    padding-top: .5vw;
+    color: #01161E;
+    font-family: "Poppins-bold", sans-serif;
+    letter-spacing: 1px;
+    font-size: 2vw;
+}
+.leaderboard .leaderboard-content {
+    padding-top: 1.5vw;
+}
+.leaderboard-content .leaderboard-table{
+    width: 95%;
+    border-collapse: collapse;
+    padding: 10px;
+    margin: auto;
+}
+.leaderboard-table .header{
+    font-size: 1.5vw;
+    letter-spacing: 1px;
+    font-weight:bold;
+    background-color: #01161E;
+    color: #fff;
+}
+.leaderboard-table .header th{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.leaderboard-table tr {
+    text-align: center;
+}
+.leaderboard-table td{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+.leaderboard-table tbody{
+    font-weight: bolder;
+    letter-spacing: 1px;
+}
+.leaderboard-table tbody tr:nth-child(even){
+    background-color: #c2a67f;
+    color: #000;
+}
+#search{
+    border:none;
+    background: transparent;
+    color: #01161E;
+    font-weight: bold;
+    font-size: 1.25vw;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    padding-left:10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    width: 20vw;
+    margin-left: 5vw;
+    border-bottom: 2px solid #01161E;
+}
+#search::placeholder{
+    color: #01161E;
+}
+#search:focus{
+    outline: none;
+}
 .task-div{
     width: 65%;
-    height: 50vw;
+    height: 90vh;
     margin-left: 32.5vw;
     margin-top: 2.5vw;
     background: #fff;
@@ -47,6 +127,7 @@ body{
     font-size: 3.5vw;
     color: #01161E;
 }
+
 .task-div .task-form form input,.task-div .task-form form textarea,.task-div .task-form form select{
     font-family: 'Poppins', sans-serif;
 }
@@ -193,7 +274,7 @@ body{
     height: 100%;
     width: 100%;
     background-color: rgba(0,0,0,0.5);
-    margin-top: -52.5vw;
+    margin-top: -52vw;
     z-index: 5;
     position: absolute;
     display: none;
@@ -240,8 +321,8 @@ body{
 }
 .admin-nav img{
     margin-top: 5vw;
-    width: 10vw;
-    height: 10vw;
+    width: 15vw;
+    height: 15vw;
     border-radius: 100%;
 }
 .user-info{
@@ -266,34 +347,63 @@ body{
 }
 .user-task-div{
     width: 65%;
-    height: 50vw;
+    height: 90vh;
     background: #fff;
     margin-left: 32.5vw;
     border-radius: 10px;
     margin-top: 2.5vw;
 }
 .user-task-div h2{
-    font-size: 3.5vw;
+    font-size: 2.5vw;
     margin: auto;
+    font-family: 'Poppins-Bold', sans-serif;
     text-align: center;
     padding-top: 1.5vw;
     color: #01161E;
 }
 .dash_flex{
-    overflow-y: scroll;
     padding:10px;
+    padding-left: 2.5vw;
+    padding-right: 2.5vw;
+}
+.caterpillar-card{
+    background-color: #dfbf92 ;
+    width: 5vw;
+    margin-top: 5vw;
+    height: 3.5vw;
+    padding-left: 2vw;
+    padding-right: 2vw;
+    border-radius: 7.5px;
+    color: #01161E;
+    display: flex;
+}
+.caterpillar-card span{
+    margin-top: 1.5vw;
+    display: flex;
+    width: 20vw;
+}
+.caterpillar-card img{
+    width: 2.50vw;
+    height: 2.5vw;
+    margin-top: -1vw;
+    margin-left: -.75vw;
+}
+.caterpillar-card span p{
+    margin-top: -1.25vw;
+    font-size: 2vw;
+    margin-left: 1.5vw;
 }
 .dash_flex::-webkit-scrollbar{
     width: 1px;
     background: transparent;
 }
 .task-container{
-    background: #000;
+    background: #01161E;
     color: #eee;
     width: 92.5%;
     margin-left: 2.5vw;
     padding:10px;
-    border-radius: 10px;
+    border-radius: 5px;
     cursor: pointer;
     transition: all 0.4s ease;
     height: 3.5vw;

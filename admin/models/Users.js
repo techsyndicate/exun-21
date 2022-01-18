@@ -18,6 +18,10 @@ const userSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+    cocoabeans:{
+        type:Number,
+        default:0,
+    },
     currentTasks :{
         type: Array,
     },
