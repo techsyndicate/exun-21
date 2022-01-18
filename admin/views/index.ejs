@@ -59,17 +59,17 @@
             map.fitBounds(bounds);
         }
     
-        function addMarker(position, icon, title, draggable) {
+        function addMarker(position, icon, title, draggable, name) {
             if (icon == '') {
                 var mk = new L.Marker(position, {
                     draggable: draggable,
-                    title: title
+                    title: name
                 });
             } else {
                 var mk = new L.Marker(position, {
                     icon: icon,
                     draggable: draggable,
-                    title: title
+                    title: name
                 });
             }
             map.addLayer(mk);
@@ -103,7 +103,7 @@
             for (let i = 0; i < users.length; i++) {
                 var position = new L.LatLng(users[i].last_known_location[0], users[i].last_known_location[1]);
                 console.log(position)
-                marker.push(addMarker(position, icon, users[i]._id, false));
+                marker.push(addMarker(position, icon, users[i]._id, false, users[i].name));
             }
         }
         // markCurrentLocation();
