@@ -326,7 +326,7 @@ body{
     margin-top: 2.5vw;
 }
 .task-info-modal{
-    background-color: #c2a67f;
+    background-color: #fff;
     width: 55vw;
     height: 35vw;
     margin: auto;
@@ -340,13 +340,33 @@ body{
 @keyframes modal {
     from{
         opacity: 0;
+        margin-top: 10.5vw;
     }
     to{
         opacity: 1;
+        margin-top: 7.5vw;
     }
 }
+#main-info{
+    color: #01161E;
+    padding: 10px;
+}
+#main-info p:nth-child(1){
+    margin-top: 5vw;
+}
+#main-info p{
+    margin-left: 3.5vw;
+    margin-bottom: 1.5vw;
+}
+#main-info span{
+    font-weight: bold;
+}
 /* loader  */
-
+#loader{
+    display: block;
+    margin: auto;
+    margin-top: 15vw;
+}
 .lds-ripple {
     display: inline-block;
     position: relative;

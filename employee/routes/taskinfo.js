@@ -32,16 +32,16 @@ router.get('/chosen', isAuthorized, (req, res) => {
 router.get('/verify', isAuthorized, (req,res)=>{
     if(req.query.typeOfTask == 'sourcing'){
         // do stuff here
-        update()
+        update(10);
     }else if(req.query.typeOfTask == 'manufacturing'){
         // do stuff here
-        update()
+        update(15);
     }else if(req.query.typeOfTask == 'transporting'){
         // do stuff here
-        update()
+        update(20);
     }
 
-    function update(){
+    function update(caterpillarValue){
         Tasks.findById(req.query.taskid)
         .then(task=>{
             task.isCompleted = true
@@ -53,10 +53,11 @@ router.get('/verify', isAuthorized, (req,res)=>{
                     user.currentTasks.splice(index, 1);
                 }
                 user.completedTasks.push(req.query.taskid)
+                user.caterpillars += caterpillarValue
                 user.markModified('currentTasks')
                 user.markModified('completedTasks')
                 user.save()
-                .then(res.send('completed'))
+                .then(res.json({success: true}))
                 .catch(err=>console.log(err))
             })
             .catch(err=>console.log(err))

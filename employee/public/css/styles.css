@@ -198,22 +198,53 @@ body{
     
 /*---------------------------------dashboard---------------------------------*/
 
+#tasks_h2 {
+    color: #FEF3E4;
+    font-size: 20px;
+    font-family: 'Poppins-bold';
+    margin-left: 15px;
+    margin-top: 30px;
+}
+
+.dash_head_flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    vertical-align: middle;
+    text-align: center
+}
+
 #tasks_heading {
-    font-weight: bold;
     text-align: center;
-    color: #01161e
+    color: #EBC999;
+    font-family: 'Poppins-bold';
+    flex: 1
+}
+
+.dash_head_flex > div > a > i {
+    color: #01161e;
+    font-size: 30px;
+    margin: 20px
 }
 
 .dash_flex {
     display: flex;
     flex-direction: column;
+    margin-bottom: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
+    vertical-align: middle;
 }
 
 .dash_flex > div {
     background-color: #01161e;
     border-radius: 5px;
     padding: 10px;
-    margin: 5px;
+    margin-left: 5px;
+    padding: 20px;
+    font-size: 17px;
+    margin-bottom: 10px;
+    margin-right: 5px;
 }
 
 .dash_flex :hover {
@@ -231,22 +262,6 @@ body{
 
 .task_type {
     float: right;
-}
-
-.profile_btn {
-    display: block;
-    margin: auto;
-    margin-top: 30px;
-    font-family: "Poppins", sans-serif;
-    background: #01161E;
-    border: none;
-    border-radius: 5px;
-    font-size: 15px;
-    color: #f1e0c5;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
 }
 
 a {

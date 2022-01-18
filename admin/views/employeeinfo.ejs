@@ -42,7 +42,7 @@ rel="stylesheet">
 </div>
 <div class="modal-div" style="margin-left: -.65vw;">
     <div class="task-info-modal">
-        <div class="modal-close" onclick="closeModal()">
+        <div class="modal-close" style="margin-left: 50vw; margin-top: 1.5vw;" onclick="closeModal()">
             <span class="material-icons-outlined">
                 close
             </span>
@@ -63,15 +63,13 @@ rel="stylesheet">
         modal.style.display = "block";
         
         fetch(`/admin/taskinfo?id=${taskid}`, {method: 'GET'})
-        .then((res)=>{ 
-            infoDiv.innerHTML = `
-            <div class="t">
-                <p>Task: ${res.body.title}</p>
-                <p>Description: ${res.body.description}</p>
-                <p>Chosen on: ${res.body.acceptedDate}</p>
-                <p>Caterpillars: Daalne hain abhi</p>
-            </div>
-            `;
+        .then(async (resp)=>{
+            res = await resp.json();
+            loader.style.display = "none";
+            infoDiv.innerHTML = `<p><span>Task:</span> ${res.title}</p>
+            <p><span>Description:</span> ${res.description}</p>
+            <p><span>Chosen on:</span> ${res.acceptedDate}</p>
+            <p><span>Caterpillars:</span> ${res.caterpillarValue}</p>`
         })
         .catch(err=>console.log(err));
     }

@@ -24,7 +24,19 @@
     }
 </script>
 
-<h1 id="tasks_heading">Tasks</h1>
+<div class='dash_head_flex'>
+    <div>
+        <a href="/leaderboard">
+            <i class="fas fa-trophy"></i> 
+        </a>
+    </div>
+    <h1 id="tasks_heading">Tasks</h1>
+    <div>
+        <a href="/profile">
+            <i class="fa fa-user"></i> 
+        </a>
+    </div>
+</div>
 
 <h2 id="tasks_h2">Chosen</h2>
 <div class="dash_flex">
@@ -38,7 +50,7 @@
 <% } %>
 </div>
 
-<h2>Not chosen</h2>
+<h2 id="tasks_h2">Available</h2>
 <div class="dash_flex">
 <% for (var i = 0; i < task.length; i++){ %>
     <% if (task[i].acceptedBy != user._id && task[i].isAccepted == false){ %>
@@ -49,9 +61,3 @@
     <% } %>
 <% } %>
 </div>
-
-<a href="/profile">
-    <button type="button" class="profile_btn">
-        Profile
-    </button>
-</a>
