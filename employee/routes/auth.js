@@ -5,7 +5,7 @@ const qs = require('query-string')
 const session = require("express-session");
 const Users = require('../models/Users')
 
-redirectUri = 'https://6f33-223-190-83-156.ngrok.io/auth/callback'
+redirectUri = process.env.REDIRECT_URI
 
 function getGoogleAuthURL(){
     const rootUrl = 'https://accounts.google.com/o/oauth2/v2/auth'
