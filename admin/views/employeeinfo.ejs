@@ -21,7 +21,7 @@ rel="stylesheet">
     <div class="dash_flex">
         <% for (var i = 0; i < tasks.length; i++){ %>
             <% if (user.currentTasks.indexOf(tasks[i]._id) != -1) { %>
-                <div class="task-container" onclick="modal()" >
+                <div class="task-container" onclick="modal('<%= tasks[i]._id %>')" >
                     <div class='task_title'><%= tasks[i].title %></div>
                     <div class='task_type'><%= tasks[i].typeOfTask.slice(0, 1).toUpperCase() %></div>
                 </div>
@@ -63,15 +63,17 @@ rel="stylesheet">
         modal.style.display = "block";
         
         fetch(`/admin/taskinfo?id=${taskid}`, {method: 'GET'})
-        .then((res)=>{
-            loader.style.display = "none";
-            infoDiv.innerHTML = `<p>Task: ${res.body.title}</p>
-            <p>Description: ${res.body.description}</p>
-            <p>Chosen on: ${res.body.acceptedDate}</p>
-            <p>Caterpillars: Daalne hain abhi</p>`
+        .then((res)=>{ 
+            infoDiv.innerHTML = `
+            <div class="t">
+                <p>Task: ${res.body.title}</p>
+                <p>Description: ${res.body.description}</p>
+                <p>Chosen on: ${res.body.acceptedDate}</p>
+                <p>Caterpillars: Daalne hain abhi</p>
+            </div>
+            `;
         })
         .catch(err=>console.log(err));
-
     }
     function closeModal(){
         var modal = document.querySelector(".modal-div");;
