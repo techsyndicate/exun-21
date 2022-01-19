@@ -5,6 +5,10 @@ router.get('/', (req, res) => {
     res.render('index')
 })
 
+router.get('/phone', (req, res) => {
+    res.send("<h1>Please open the site on your phone's browser or using dev tools and refresh.</h1>")
+})
+
 router.get('/profile', isAuthorized,(req,res)=>{
     User.findOne({_id: req.session.user}, (err, user) => {
         if(err) return console.log(err)

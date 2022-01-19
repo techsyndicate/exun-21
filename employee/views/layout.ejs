@@ -8,6 +8,19 @@
     <title>Document</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
+<script>
+    window.onload = () => {
+        if (window.screen.width > 500) {
+            window.location.href= '/phone'
+        }
+    }
+
+    window.addEventListener('resize', () => {
+        if (window.screen.width > 500) {
+            window.location.href= '/phone'
+        } 
+    })
+</script>
 <body>
     <%- body %>
 </body>

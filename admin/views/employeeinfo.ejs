@@ -81,7 +81,7 @@ rel="stylesheet">
         fetch(`/admin/taskinfo?id=${taskid}`, {method: 'GET'})
         .then(async (resp)=>{
             res = await resp.json();
-            loader.style.display = "none";
+            console.log(res);
             infoDiv.innerHTML = `<p><span>Task:</span> ${res.title}</p>
             <p><span>Description:</span> ${res.description}</p>
             <p><span>Chosen on:</span> ${res.acceptedDate}</p>
